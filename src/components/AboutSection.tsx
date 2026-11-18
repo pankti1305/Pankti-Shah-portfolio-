@@ -22,9 +22,10 @@ export const AboutSection: React.FC = () => {
               <img
                 src={IMAGES.pankti}
                 alt="Portrait of Pankti Shah"
-                width={413}
-                height={569}
+                width={1392}
+                height={1918}
                 loading="lazy"
+                decoding="async"
                 referrerPolicy="no-referrer"
               />
             </div>

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { isFinePointer, prefersReducedMotion } from '../hooks/useInteractiveEnhancements';
 
-type CursorVariant = 'default' | 'link' | 'button' | 'image' | 'stage';
+type CursorVariant = 'default' | 'link' | 'button' | 'image' | 'stage' | 'lightbox';
 
 export const CustomCursor: React.FC = () => {
   const [enabled, setEnabled] = useState(false);
@@ -57,6 +57,10 @@ export const CustomCursor: React.FC = () => {
 
     const detectVariant = (target: EventTarget | null): CursorVariant => {
       if (!(target instanceof Element)) return 'default';
+      if (target.closest('.lb')) {
+        if (target.closest('button, a, [role="button"]')) return 'button';
+        return 'lightbox';
+      }
       if (target.closest('.tilt, .sheet, .portrait img')) return 'image';
       if (target.closest('button, .btn, .lamp')) return 'button';
       if (target.closest('a, [role="button"]')) return 'link';
@@ -114,6 +118,21 @@ export const CustomCursor: React.FC = () => {
       if (targetX >= 0 && targetY >= 0) setVisibility(true);
     };
 
+    const refreshVariantAtPointer = () => {
+      if (targetX < 0 || targetY < 0) return;
+      const el = document.elementFromPoint(targetX, targetY);
+      const next = detectVariant(el);
+      if (next !== currentVariant) {
+        currentVariant = next;
+        applyState(currentVariant, pressed);
+      }
+    };
+
+    const observer = new MutationObserver(() => {
+      requestAnimationFrame(refreshVariantAtPointer);
+    });
+    observer.observe(root, { attributes: true, attributeFilter: ['data-lightbox'] });
+
     window.addEventListener('pointermove', onPointerMove, { passive: true });
     window.addEventListener('pointerdown', onPointerDown, { passive: true });
     window.addEventListener('pointerup', onPointerUp, { passive: true });
@@ -137,6 +156,7 @@ export const CustomCursor: React.FC = () => {
     return () => {
       root.classList.remove('has-custom-cursor');
       cancelAnimationFrame(rafId);
+      observer.disconnect();
       window.removeEventListener('pointermove', onPointerMove);
       window.removeEventListener('pointerdown', onPointerDown);
       window.removeEventListener('pointerup', onPointerUp);

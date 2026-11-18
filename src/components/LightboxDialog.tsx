@@ -23,7 +23,7 @@ interface LightboxSlide {
   caption: string;
   context?: string;
   surface: ImageSurface;
-  fadeBottom?: boolean;
+  globalItemIndex: number;
 }
 
 export const LightboxDialog: React.FC<LightboxDialogProps> = ({
@@ -31,95 +31,161 @@ export const LightboxDialog: React.FC<LightboxDialogProps> = ({
   onClose,
   onChangeIndex,
 }) => {
-  const dialogRef = useRef<HTMLDialogElement>(null);
+  const containerRef = useRef<HTMLDivElement>(null);
+  const prevFocusRef = useRef<HTMLElement | null>(null);
   const touchXRef = useRef<number | null>(null);
   const [showNotes, setShowNotes] = useState(false);
+  const [zoomed, setZoomed] = useState(false);
 
-  const sequence = useMemo<LightboxSlide[]>(() => {
-    if (!state) return [];
+  const { scopedSequence, currentScopeIdx, currentProject } = useMemo(() => {
+    if (!state) {
+      return {
+        scopedSequence: [] as LightboxSlide[],
+        currentScopeIdx: 0,
+        currentProject: null,
+      };
+    }
+
     const project = PROJECTS[state.projectIndex];
-    if (!project) return [];
+    if (!project) {
+      return {
+        scopedSequence: [] as LightboxSlide[],
+        currentScopeIdx: 0,
+        currentProject: null,
+      };
+    }
+
+    if (state.itemIndex <= 0) {
+      return {
+        scopedSequence: [
+          {
+            key: project.hero,
+            caption: project.heroCap,
+            surface: project.heroSurface ?? 'photo',
+            globalItemIndex: 0,
+          },
+        ],
+        currentScopeIdx: 0,
+        currentProject: project,
+      };
+    }
+
     const orderedSheets = getOrderedProjectSheets(project);
-    return [
-      {
-        key: project.hero,
-        caption: project.heroCap,
-        surface: project.heroSurface ?? 'photo',
-      },
-      ...orderedSheets.map((s): LightboxSlide => {
-        const catLabel = project.categoryTitles?.[s.category] ?? s.category;
-        const fullContext = s.subgroup ? `${catLabel} · ${s.subgroup}` : catLabel;
-        const capText = s.title && s.caption ? `${s.title} — ${s.caption}` : (s.title ?? s.caption ?? '');
-        return {
-          key: s.imageKey,
-          caption: capText,
-          context: fullContext,
-          surface: s.surface ?? (s.fit === 'cover' ? 'photo' : 'sheet'),
-          fadeBottom: s.fadeBottom,
-        };
-      }),
-    ];
+    const activeSheet = orderedSheets[state.itemIndex - 1];
+    if (!activeSheet) {
+      return {
+        scopedSequence: [] as LightboxSlide[],
+        currentScopeIdx: 0,
+        currentProject: project,
+      };
+    }
+
+    const slides: LightboxSlide[] = [];
+    orderedSheets.forEach((s, idx) => {
+      const sameCategory = s.category === activeSheet.category;
+      const sameSubgroup = activeSheet.subgroup
+        ? s.subgroup === activeSheet.subgroup
+        : !s.subgroup;
+      if (!sameCategory || !sameSubgroup) return;
+
+      const catLabel = project.categoryTitles?.[s.category] ?? s.category;
+      const fullContext = s.subgroup ? `${catLabel} · ${s.subgroup}` : catLabel;
+      const capText =
+        s.title && s.caption
+          ? `${s.title} — ${s.caption}`
+          : (s.title ?? s.caption ?? '');
+
+      slides.push({
+        key: s.imageKey,
+        caption: capText,
+        context: fullContext,
+        surface: s.surface ?? (s.fit === 'cover' ? 'photo' : 'sheet'),
+        globalItemIndex: idx + 1,
+      });
+    });
+
+    const scopeIdx = Math.max(
+      0,
+      slides.findIndex((slide) => slide.globalItemIndex === state.itemIndex)
+    );
+
+    return {
+      scopedSequence: slides,
+      currentScopeIdx: scopeIdx,
+      currentProject: project,
+    };
   }, [state]);
 
   const step = useCallback(
     (delta: number) => {
-      if (!state || sequence.length === 0) return;
-      const next = (state.itemIndex + delta + sequence.length) % sequence.length;
-      onChangeIndex(next);
+      if (!state || scopedSequence.length <= 1) return;
+      const nextPos =
+        (currentScopeIdx + delta + scopedSequence.length) % scopedSequence.length;
+      onChangeIndex(scopedSequence[nextPos].globalItemIndex);
     },
-    [state, sequence.length, onChangeIndex]
+    [state, scopedSequence, currentScopeIdx, onChangeIndex]
   );
 
   useEffect(() => {
-    const dialog = dialogRef.current;
-    if (!dialog) return;
-
+    const root = document.documentElement;
     if (state) {
-      if (!dialog.open) {
-        if (typeof dialog.showModal === 'function') {
-          dialog.showModal();
-        } else {
-          dialog.setAttribute('open', '');
-        }
+      if (!prevFocusRef.current) {
+        prevFocusRef.current = document.activeElement as HTMLElement | null;
       }
+      root.setAttribute('data-lightbox', '1');
       document.body.style.overflow = 'hidden';
+      containerRef.current?.focus({ preventScroll: true });
     } else {
       setShowNotes(false);
-      if (dialog.open) {
-        dialog.close();
-      } else {
-        dialog.removeAttribute('open');
-      }
+      setZoomed(false);
+      root.removeAttribute('data-lightbox');
       document.body.style.overflow = '';
+      if (prevFocusRef.current) {
+        prevFocusRef.current.focus?.({ preventScroll: true });
+        prevFocusRef.current = null;
+      }
     }
 
     return () => {
+      root.removeAttribute('data-lightbox');
       document.body.style.overflow = '';
     };
   }, [state]);
 
-  const handleKeyDown = (e: React.KeyboardEvent<HTMLDialogElement>) => {
-    if (e.key === 'ArrowRight') {
-      e.preventDefault();
-      step(1);
-    } else if (e.key === 'ArrowLeft') {
-      e.preventDefault();
-      step(-1);
-    }
-  };
+  useEffect(() => {
+    if (!state) return;
+    const onWindowKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        e.preventDefault();
+        onClose();
+      } else if (e.key === 'ArrowRight') {
+        e.preventDefault();
+        setZoomed(false);
+        step(1);
+      } else if (e.key === 'ArrowLeft') {
+        e.preventDefault();
+        setZoomed(false);
+        step(-1);
+      }
+    };
+    window.addEventListener('keydown', onWindowKeyDown);
+    return () => window.removeEventListener('keydown', onWindowKeyDown);
+  }, [state, onClose, step]);
 
-  const handleBackdropClick = (e: React.MouseEvent<HTMLDialogElement>) => {
+  if (!state) return null;
+
+  const handleBackdropClick = (e: React.MouseEvent<HTMLDivElement>) => {
     const target = e.target as HTMLElement;
     if (target.classList.contains('lb-stage') || target.classList.contains('lb-inner')) {
       onClose();
     }
   };
 
-  const handleTouchStart = (e: React.TouchEvent<HTMLDialogElement>) => {
+  const handleTouchStart = (e: React.TouchEvent<HTMLDivElement>) => {
     touchXRef.current = e.touches[0]?.clientX ?? null;
   };
 
-  const handleTouchEnd = (e: React.TouchEvent<HTMLDialogElement>) => {
+  const handleTouchEnd = (e: React.TouchEvent<HTMLDivElement>) => {
     if (touchXRef.current === null) return;
     const endX = e.changedTouches[0]?.clientX;
     if (typeof endX === 'number') {
@@ -131,26 +197,29 @@ export const LightboxDialog: React.FC<LightboxDialogProps> = ({
     touchXRef.current = null;
   };
 
-  const currentProject = state ? PROJECTS[state.projectIndex] : null;
-  const currentSlide = state ? sequence[state.itemIndex] : null;
+  const currentSlide = scopedSequence[currentScopeIdx] ?? null;
+  const hasMultiple = scopedSequence.length > 1;
 
   return (
-    <dialog
-      ref={dialogRef}
+    <div
+      ref={containerRef}
+      role="dialog"
+      aria-modal="true"
+      tabIndex={-1}
       className="lb"
       id="lb"
       aria-label="Drawing viewer"
-      onClose={onClose}
       onClick={handleBackdropClick}
-      onKeyDown={handleKeyDown}
       onTouchStart={handleTouchStart}
       onTouchEnd={handleTouchEnd}
     >
       <div className="lb-inner">
         <div className="lb-top">
           <span id="lb-title">
-            {currentProject && state
-              ? `${currentProject.title}, ${state.itemIndex + 1} of ${sequence.length}`
+            {currentProject
+              ? hasMultiple
+                ? `${currentProject.title}, ${currentScopeIdx + 1} of ${scopedSequence.length}`
+                : currentProject.title
               : ''}
           </span>
           <div className="lb-top-actions">
@@ -177,27 +246,34 @@ export const LightboxDialog: React.FC<LightboxDialogProps> = ({
           </div>
         </div>
 
-        <div className="lb-stage">
-          <button
-            type="button"
-            className="lb-prev"
-            id="lb-prev"
-            aria-label="Previous drawing"
-            onClick={() => step(-1)}
-          >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M15 5l-7 7 7 7" />
-            </svg>
-          </button>
+        <div className="lb-stage" data-zoomed={zoomed ? '1' : undefined}>
+          {hasMultiple && (
+            <button
+              type="button"
+              className="lb-prev"
+              id="lb-prev"
+              aria-label="Previous drawing"
+              onClick={() => {
+                setZoomed(false);
+                step(-1);
+              }}
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M15 5l-7 7 7 7" />
+              </svg>
+            </button>
+          )}
 
           {currentSlide && (
             <img
               key={currentSlide.key}
               id="lb-img"
               data-surface={currentSlide.surface}
-              data-fade={currentSlide.fadeBottom ? 'bottom' : undefined}
               src={IMAGES[currentSlide.key]}
               alt={currentSlide.caption}
+              decoding="sync"
+              fetchPriority="high"
+              onClick={() => setZoomed((prev) => !prev)}
               referrerPolicy="no-referrer"
             />
           )}
@@ -221,27 +297,32 @@ export const LightboxDialog: React.FC<LightboxDialogProps> = ({
             </aside>
           )}
 
-          <button
-            type="button"
-            className="lb-next"
-            id="lb-next"
-            aria-label="Next drawing"
-            onClick={() => step(1)}
-          >
-            <svg viewBox="0 0 24 24" aria-hidden="true">
-              <path d="M9 5l7 7-7 7" />
-            </svg>
-          </button>
+          {hasMultiple && (
+            <button
+              type="button"
+              className="lb-next"
+              id="lb-next"
+              aria-label="Next drawing"
+              onClick={() => {
+                setZoomed(false);
+                step(1);
+              }}
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M9 5l7 7-7 7" />
+              </svg>
+            </button>
+          )}
         </div>
 
         <div className="lb-cap" id="lb-cap">
           {currentSlide
-            ? currentSlide.context
+            ? currentSlide.context && currentSlide.caption
               ? `${currentSlide.context} · ${currentSlide.caption}`
-              : currentSlide.caption
+              : currentSlide.context || currentSlide.caption
             : ''}
         </div>
       </div>
-    </dialog>
+    </div>
   );
 };

@@ -103,6 +103,7 @@ const CaseStudyItem: React.FC<CaseItemProps> = ({
                   src={IMAGES[project.hero]}
                   alt={project.heroCap}
                   loading="lazy"
+                  decoding="async"
                   referrerPolicy="no-referrer"
                 />
               </button>
@@ -203,9 +204,11 @@ const CaseStudyItem: React.FC<CaseItemProps> = ({
                               key={sheet.imageKey}
                               className="sheet gallery-card"
                               type="button"
+                              data-key={sheet.imageKey}
                               data-fit={sheet.fit ?? 'contain'}
                               data-surface={sheet.surface ?? (sheet.fit === 'cover' ? 'photo' : 'sheet')}
                               data-fade={sheet.fadeBottom ? 'bottom' : undefined}
+                              data-wide={sheet.panoramic ? '1' : undefined}
                               data-role={
                                 sub.layout === 'plan-elevations' && itemIdx === 0
                                   ? 'plan'
@@ -217,7 +220,11 @@ const CaseStudyItem: React.FC<CaseItemProps> = ({
                                   : undefined
                               }
                               onClick={() => onOpenLightbox(projectIndex, orderedIndex)}
-                              aria-label={`Open ${sub.title}: ${sheet.title ?? sheet.caption}`}
+                              aria-label={
+                                sheet.title || sheet.caption
+                                  ? `Open ${sub.title}: ${sheet.title ?? sheet.caption}`
+                                  : `Open ${sub.title} view ${itemIdx + 1}`
+                              }
                             >
                               <div className="gallery-frame">
                                 <img
@@ -227,9 +234,10 @@ const CaseStudyItem: React.FC<CaseItemProps> = ({
                                       ? sheet.caption
                                         ? `${sheet.title} — ${sheet.caption}`
                                         : sheet.title
-                                      : (sheet.caption ?? '')
+                                      : (sheet.caption ?? `${sub.title} view ${itemIdx + 1}`)
                                   }
                                   loading="lazy"
+                                  decoding="async"
                                   referrerPolicy="no-referrer"
                                 />
                               </div>
@@ -258,9 +266,11 @@ const CaseStudyItem: React.FC<CaseItemProps> = ({
                         key={sheet.imageKey}
                         className="sheet gallery-card"
                         type="button"
+                        data-key={sheet.imageKey}
                         data-fit={sheet.fit ?? 'contain'}
                         data-surface={sheet.surface ?? (sheet.fit === 'cover' ? 'photo' : 'sheet')}
                         data-fade={sheet.fadeBottom ? 'bottom' : undefined}
+                        data-wide={sheet.panoramic ? '1' : undefined}
                         data-span={sheet.span}
                         style={
                           sheet.ar
@@ -268,13 +278,18 @@ const CaseStudyItem: React.FC<CaseItemProps> = ({
                             : undefined
                         }
                         onClick={() => onOpenLightbox(projectIndex, orderedIndex)}
-                        aria-label={`Open ${group.title}: ${sheet.title ?? sheet.caption ?? ''}`}
+                        aria-label={
+                          sheet.title || sheet.caption
+                            ? `Open ${group.title}: ${sheet.title ?? sheet.caption}`
+                            : `Open ${group.title}`
+                        }
                       >
                         <div className="gallery-frame">
                           <img
                             src={IMAGES[sheet.imageKey]}
-                            alt={sheet.caption ?? sheet.title ?? ''}
+                            alt={sheet.caption ?? sheet.title ?? group.title}
                             loading="lazy"
+                            decoding="async"
                             referrerPolicy="no-referrer"
                           />
                         </div>
