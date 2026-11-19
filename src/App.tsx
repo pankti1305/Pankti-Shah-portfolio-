@@ -5,11 +5,13 @@ import { ContactSection } from './components/ContactSection';
 import { CustomCursor } from './components/CustomCursor';
 import { Header, NavGroup } from './components/Header';
 import { HeroSection } from './components/HeroSection';
+import { IntroOverlay, shouldShowPortfolioIntro } from './components/IntroOverlay';
 import { LightboxDialog, LightboxState } from './components/LightboxDialog';
 import { ProjectExplorerDialog } from './components/ProjectExplorerDialog';
 import { StatementSection } from './components/StatementSection';
 import { WorkIndexSection } from './components/WorkIndexSection';
 import { PROJECTS } from './data/portfolioData';
+import { useBackgroundMusic } from './hooks/useBackgroundMusic';
 import { prefersReducedMotion, useScrollReveal } from './hooks/useInteractiveEnhancements';
 
 export default function App() {
@@ -19,23 +21,29 @@ export default function App() {
       ? window.matchMedia('(prefers-color-scheme: dark)').matches
       : false
   );
+  const [introActive, setIntroActive] = useState<boolean>(() => shouldShowPortfolioIntro());
   const [scrolled, setScrolled] = useState(false);
   const [activeNav, setActiveNav] = useState<NavGroup>(null);
   const [explorerProjectIndex, setExplorerProjectIndex] = useState<number | null>(null);
   const [lightbox, setLightbox] = useState<LightboxState | null>(null);
 
+  const music = useBackgroundMusic();
   const night = userSelectedTheme ? userSelectedTheme === 'dark' : systemDark;
 
   useScrollReveal();
 
-  // Coordinate body scroll lock across Explorer and Lightbox overlays
+  const handleIntroComplete = useCallback(() => {
+    setIntroActive(false);
+  }, []);
+
+  // Coordinate body scroll lock across Intro, Explorer, and Lightbox overlays
   useEffect(() => {
-    const locked = explorerProjectIndex !== null || lightbox !== null;
+    const locked = introActive || explorerProjectIndex !== null || lightbox !== null;
     document.body.style.overflow = locked ? 'hidden' : '';
     return () => {
       document.body.style.overflow = '';
     };
-  }, [explorerProjectIndex, lightbox]);
+  }, [introActive, explorerProjectIndex, lightbox]);
 
   // Listen to OS color scheme changes when user hasn't manually overridden
   useEffect(() => {
@@ -152,6 +160,8 @@ export default function App() {
     <>
       <CustomCursor />
 
+      {introActive && <IntroOverlay onComplete={handleIntroComplete} />}
+
       <a className="skip" href="#work">
         Skip to work
       </a>
@@ -160,12 +170,19 @@ export default function App() {
         scrolled={scrolled}
         activeNav={activeNav}
         night={night}
+        musicEnabled={music.enabled}
+        musicPlaying={music.isPlaying}
         onToggleTheme={handleToggleTheme}
+        onToggleMusic={music.toggle}
         onNavigate={handleNavigate}
       />
 
       <main>
-        <HeroSection night={night} onNavigate={handleNavigate} />
+        <HeroSection
+          night={night}
+          introActive={introActive}
+          onNavigate={handleNavigate}
+        />
         <StatementSection />
         <WorkIndexSection onNavigate={handleNavigate} />
         <CaseStudySection
@@ -179,6 +196,9 @@ export default function App() {
       <ProjectExplorerDialog
         projectIndex={explorerProjectIndex}
         isLightboxOpen={lightbox !== null}
+        musicEnabled={music.enabled}
+        musicPlaying={music.isPlaying}
+        onToggleMusic={music.toggle}
         onClose={handleCloseExplorer}
         onOpenLightbox={handleOpenLightbox}
       />

@@ -8,10 +8,14 @@ import {
   PROJECTS,
 } from '../data/portfolioData';
 import { prefersReducedMotion } from '../hooks/useInteractiveEnhancements';
+import { MusicToggleButton } from './MusicToggleButton';
 
 interface ProjectExplorerDialogProps {
   projectIndex: number | null;
   isLightboxOpen: boolean;
+  musicEnabled: boolean;
+  musicPlaying: boolean;
+  onToggleMusic: () => void;
   onClose: () => void;
   onOpenLightbox: (projectIndex: number, sheetIndex: number) => void;
 }
@@ -19,6 +23,9 @@ interface ProjectExplorerDialogProps {
 export const ProjectExplorerDialog: React.FC<ProjectExplorerDialogProps> = ({
   projectIndex,
   isLightboxOpen,
+  musicEnabled,
+  musicPlaying,
+  onToggleMusic,
   onClose,
   onOpenLightbox,
 }) => {
@@ -262,6 +269,12 @@ export const ProjectExplorerDialog: React.FC<ProjectExplorerDialogProps> = ({
                 </button>
               </div>
             )}
+            <MusicToggleButton
+              enabled={musicEnabled}
+              isPlaying={musicPlaying}
+              onToggle={onToggleMusic}
+              variant="explorer"
+            />
             <button
               type="button"
               className="explorer-close-btn"

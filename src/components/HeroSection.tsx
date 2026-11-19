@@ -5,10 +5,11 @@ import { HeroScene3D } from './HeroScene3D';
 
 interface HeroSectionProps {
   night: boolean;
+  introActive: boolean;
   onNavigate: (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => void;
 }
 
-export const HeroSection: React.FC<HeroSectionProps> = ({ night, onNavigate }) => {
+export const HeroSection: React.FC<HeroSectionProps> = ({ night, introActive, onNavigate }) => {
   const heroRef = useRef<HTMLElement | null>(null);
   const copyRef = useRef<HTMLDivElement | null>(null);
   const ctaRef = useRef<HTMLAnchorElement | null>(null);
@@ -18,15 +19,19 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ night, onNavigate }) =
   useMagnetic(ctaRef, 0.22);
 
   useEffect(() => {
+    if (introActive) {
+      setHeroLoaded(false);
+      return;
+    }
     let timer = 0;
     const raf = requestAnimationFrame(() => {
-      timer = window.setTimeout(() => setHeroLoaded(true), 120);
+      timer = window.setTimeout(() => setHeroLoaded(true), 90);
     });
     return () => {
       cancelAnimationFrame(raf);
       clearTimeout(timer);
     };
-  }, []);
+  }, [introActive]);
 
   const handleFallback = useCallback(() => {
     setWebglFailed(true);

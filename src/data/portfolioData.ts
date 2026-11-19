@@ -320,7 +320,7 @@ export const PROJECTS: Project[] = [
     sem: "Semester 4",
     tag: "Skin, makeup, fragrance and self care",
     hero: "p1-hero",
-    ar: "807/485",
+    ar: "1913/1149",
     heroCap: "Physical model of the store, central display and wall units",
     brief:
       "A contemporary beauty store that feels inviting and easy to shop. The brief asked for clear product display, circulation, lighting, billing and storage, laid out so customers want to explore and interact with the products.",
@@ -346,7 +346,7 @@ export const PROJECTS: Project[] = [
         category: "Technical Drawings",
         fit: "contain",
         surface: "cad",
-        ar: "1700/1168",
+        ar: "2397/1647",
       },
       {
         imageKey: "p1-rendered-plan",
@@ -355,7 +355,7 @@ export const PROJECTS: Project[] = [
         category: "Rendered Drawings",
         fit: "contain",
         surface: "sheet",
-        ar: "856/618",
+        ar: "1706/1238",
       },
       {
         imageKey: "p1-rendered-billing",
@@ -364,7 +364,7 @@ export const PROJECTS: Project[] = [
         category: "Rendered Drawings",
         fit: "contain",
         surface: "sheet",
-        ar: "940/618",
+        ar: "1894/1254",
       },
       {
         imageKey: "p1-rendered-elevations",
@@ -382,7 +382,7 @@ export const PROJECTS: Project[] = [
         category: "Physical Models",
         fit: "contain",
         surface: "photo",
-        ar: "1376/768",
+        ar: "1926/1075",
         span: 6,
       },
       {
@@ -391,7 +391,7 @@ export const PROJECTS: Project[] = [
         category: "Physical Models",
         fit: "contain",
         surface: "photo",
-        ar: "1376/768",
+        ar: "1926/1075",
         span: 6,
       },
       {
@@ -454,7 +454,7 @@ export const PROJECTS: Project[] = [
         category: "Physical Models",
         fit: "contain",
         surface: "photo",
-        ar: "1264/848",
+        ar: "1909/1280",
         span: 6,
       },
       {
@@ -463,7 +463,7 @@ export const PROJECTS: Project[] = [
         category: "Physical Models",
         fit: "contain",
         surface: "photo",
-        ar: "1264/848",
+        ar: "1909/1280",
         span: 6,
       },
     ],
@@ -482,7 +482,7 @@ export const PROJECTS: Project[] = [
     tag: "Learn, play, grow",
     location: "Bhilwara, Rajasthan",
     hero: "p2-hero",
-    ar: "939/508",
+    ar: "1916/1036",
     heroCap: "Courtyard view of the school and play areas",
     brief:
       "A safe, engaging school for pre-primary to Grade 1 children, their teachers and staff, with age-appropriate learning spaces, play areas and room to interact. The design responds to Bhilwara’s hot, dry climate.",
@@ -524,7 +524,7 @@ export const PROJECTS: Project[] = [
         category: "Other Project Visuals",
         fit: "contain",
         surface: "photo",
-        ar: "1/1",
+        ar: "2084/2048",
       },
       {
         imageKey: "p2-concept-2",
@@ -532,7 +532,7 @@ export const PROJECTS: Project[] = [
         category: "Other Project Visuals",
         fit: "contain",
         surface: "photo",
-        ar: "1/1",
+        ar: "2102/2048",
       },
     ],
     categoryOrder: ["Other Project Visuals", "Technical Drawings"],
@@ -552,7 +552,7 @@ export const PROJECTS: Project[] = [
     sem: "Semester 4, CAD",
     tag: "Live, relax, connect, gather, comfort",
     hero: "p3-hero",
-    ar: "695/562",
+    ar: "1918/1551",
     heroCap: "The villa that the interior scheme was developed for",
     brief:
       "The interior design of a given villa in an individually chosen style, covering the planning and detailing of every room with furniture, materials, colours, lighting and space requirements in mind.",
@@ -572,7 +572,7 @@ export const PROJECTS: Project[] = [
         category: "Technical Drawings",
         fit: "contain",
         surface: "cad",
-        ar: "1700/1168",
+        ar: "2397/1647",
       },
       {
         imageKey: "p3-rplan-gf",
@@ -603,7 +603,7 @@ export const PROJECTS: Project[] = [
         category: "Technical Drawings",
         fit: "contain",
         surface: "cad",
-        ar: "1700/1168",
+        ar: "2397/1647",
       },
       {
         imageKey: "p3-sec-cd",
@@ -611,7 +611,7 @@ export const PROJECTS: Project[] = [
         category: "Technical Drawings",
         fit: "contain",
         surface: "cad",
-        ar: "1700/1168",
+        ar: "2397/1647",
       },
       {
         imageKey: "p3-rsec-aa",
@@ -622,7 +622,7 @@ export const PROJECTS: Project[] = [
         fit: "contain",
         surface: "photo",
         fadeBottom: true,
-        ar: "1376/768",
+        ar: "1926/1075",
       },
       {
         imageKey: "p3-rsec-bb",
@@ -632,7 +632,7 @@ export const PROJECTS: Project[] = [
         fit: "contain",
         surface: "photo",
         fadeBottom: true,
-        ar: "1376/768",
+        ar: "1926/1075",
       },
       {
         imageKey: "p3-rsec-cc",
@@ -642,7 +642,7 @@ export const PROJECTS: Project[] = [
         fit: "contain",
         surface: "photo",
         fadeBottom: true,
-        ar: "1376/768",
+        ar: "1926/1075",
       },
       {
         imageKey: "p3-rsec-dd",
@@ -652,7 +652,7 @@ export const PROJECTS: Project[] = [
         fit: "contain",
         surface: "photo",
         fadeBottom: true,
-        ar: "1376/768",
+        ar: "1926/1075",
       },
       {
         imageKey: "p3-bedroom",
@@ -660,7 +660,7 @@ export const PROJECTS: Project[] = [
         category: "Technical Drawings",
         fit: "contain",
         surface: "cad",
-        ar: "1700/1168",
+        ar: "2397/1647",
       },
       {
         imageKey: "p3-folding",
@@ -668,7 +668,7 @@ export const PROJECTS: Project[] = [
         category: "Technical Drawings",
         fit: "contain",
         surface: "cad",
-        ar: "1700/1168",
+        ar: "2397/1647",
       },
       {
         imageKey: "p3-bath-plan",
@@ -678,7 +678,7 @@ export const PROJECTS: Project[] = [
         subgroupLayout: "plan-elevations",
         fit: "contain",
         surface: "photo",
-        ar: "846/1185",
+        ar: "1371/1920",
       },
       {
         imageKey: "p3-bath-a",
@@ -687,7 +687,7 @@ export const PROJECTS: Project[] = [
         subgroup: "Bathroom — Plan & Elevations",
         fit: "contain",
         surface: "photo",
-        ar: "753/1344",
+        ar: "1069/1908",
       },
       {
         imageKey: "p3-bath-b",
@@ -696,7 +696,7 @@ export const PROJECTS: Project[] = [
         subgroup: "Bathroom — Plan & Elevations",
         fit: "contain",
         surface: "photo",
-        ar: "896/1156",
+        ar: "1487/1919",
       },
       {
         imageKey: "p3-bath-c",
@@ -705,7 +705,7 @@ export const PROJECTS: Project[] = [
         subgroup: "Bathroom — Plan & Elevations",
         fit: "contain",
         surface: "photo",
-        ar: "768/1350",
+        ar: "1091/1917",
       },
       {
         imageKey: "p3-bath-d",
@@ -714,7 +714,7 @@ export const PROJECTS: Project[] = [
         subgroup: "Bathroom — Plan & Elevations",
         fit: "contain",
         surface: "photo",
-        ar: "870/1165",
+        ar: "1427/1911",
       },
       {
         imageKey: "p3-kitchen-plan",
@@ -724,7 +724,7 @@ export const PROJECTS: Project[] = [
         subgroupLayout: "plan-elevations",
         fit: "contain",
         surface: "photo",
-        ar: "887/1184",
+        ar: "1437/1918",
       },
       {
         imageKey: "p3-kitchen-a",
@@ -733,7 +733,7 @@ export const PROJECTS: Project[] = [
         subgroup: "Kitchen & Dining — Plan & Elevations",
         fit: "contain",
         surface: "photo",
-        ar: "1356/763",
+        ar: "1912/1076",
       },
       {
         imageKey: "p3-kitchen-b",
@@ -742,7 +742,7 @@ export const PROJECTS: Project[] = [
         subgroup: "Kitchen & Dining — Plan & Elevations",
         fit: "contain",
         surface: "photo",
-        ar: "1354/759",
+        ar: "1909/1070",
       },
       {
         imageKey: "p3-kitchen-c",
@@ -751,7 +751,7 @@ export const PROJECTS: Project[] = [
         subgroup: "Kitchen & Dining — Plan & Elevations",
         fit: "contain",
         surface: "photo",
-        ar: "998/1007",
+        ar: "1896/1913",
       },
       {
         imageKey: "p3-kitchen-d",
@@ -760,7 +760,7 @@ export const PROJECTS: Project[] = [
         subgroup: "Kitchen & Dining — Plan & Elevations",
         fit: "contain",
         surface: "photo",
-        ar: "1000/898",
+        ar: "1920/1724",
       },
     ],
     categoryOrder: ["Technical Drawings", "Rendered Drawings"],
@@ -778,7 +778,7 @@ export const PROJECTS: Project[] = [
     tag: "Preserve, reimagine, revive, experience",
     location: "RC College, Ahmedabad",
     hero: "p4-hero",
-    ar: "925/433",
+    ar: "1915/896",
     heroCap: "The existing RC College building in Ahmedabad",
     brief:
       "Turn the existing RC College building into a five-star hotel while keeping the character of the structure. The project covers reception, banquet, indoor and outdoor dining, guest rooms and the landscape around them.",
@@ -803,100 +803,87 @@ export const PROJECTS: Project[] = [
     ],
     sheets: [
       {
+        imageKey: "p4-site-4",
+        caption: "Domed corner tower and main red-brick verandah facade",
+        category: "Site Photographs",
+        fit: "contain",
+        surface: "photo",
+        ar: "1916/1906",
+      },
+      {
+        imageKey: "p4-site-1",
+        caption: "Timber lattice verandah and upper brick arches",
+        category: "Site Photographs",
+        fit: "contain",
+        surface: "photo",
+        ar: "1450/1920",
+      },
+      {
+        imageKey: "p4-site-2",
+        caption: "Octagonal brick tower and surrounding tree canopy",
+        category: "Site Photographs",
+        fit: "contain",
+        surface: "photo",
+        ar: "1339/1917",
+      },
+      {
+        imageKey: "p4-site-3",
+        caption: "Turret facade with arched openings",
+        category: "Site Photographs",
+        fit: "contain",
+        surface: "photo",
+        ar: "1324/1920",
+      },
+      {
+        imageKey: "p4-site-5",
+        caption: "Existing wing elevation with pitched clay-tile roof",
+        category: "Site Photographs",
+        fit: "contain",
+        surface: "photo",
+        ar: "1712/1914",
+      },
+      {
+        imageKey: "p4-site-6",
+        caption: "Historic arched doorway with louvered timber shutters",
+        category: "Site Photographs",
+        fit: "contain",
+        surface: "photo",
+        ar: "1294/1914",
+      },
+      {
         imageKey: "p4-moodboard",
         caption: "Bohemian interior palette, natural textures, brass lighting and foliage",
         category: "Moodboard",
         fit: "contain",
         surface: "watercolor",
-        ar: "1190/1070",
+        ar: "2380/2140",
       },
       {
         imageKey: "p4-site-landuse",
         title: "Surrounding Land Use",
         caption: "Context mapping across residential, retail, school and institutional zones",
         category: "Site Analysis",
-        subgroup: "Site Analysis Diagrams",
-        subgroupDesc:
-          "Contextual land-use, solar orientation and road-network diagrams documenting the historic RC College site in Ahmedabad.",
         fit: "contain",
         surface: "watercolor",
-        ar: "1190/1010",
+        ar: "2380/2020",
       },
       {
         imageKey: "p4-site-sunpath",
         title: "Sun Path & Orientation",
         caption: "Solar movement, north orientation and landscape microclimate",
         category: "Site Analysis",
-        subgroup: "Site Analysis Diagrams",
         fit: "contain",
         surface: "watercolor",
-        ar: "1125/1100",
+        ar: "2250/2200",
       },
       {
         imageKey: "p4-site-road",
         title: "Approach & Road Network",
         caption: "Primary arterial road and site access corridor",
         category: "Site Analysis",
-        subgroup: "Site Analysis Diagrams",
         fit: "contain",
         surface: "photo",
-        ar: "1413/733",
-      },
-      {
-        imageKey: "p4-site-1",
-        caption: "Timber lattice verandah and upper brick arches",
-        category: "Site Analysis",
-        subgroup: "Site Photographs",
-        subgroupDesc:
-          "Existing RC College heritage facade, corner domes, brick colonnades and timber shutter details.",
-        fit: "contain",
-        surface: "photo",
-        ar: "580/768",
-      },
-      {
-        imageKey: "p4-site-2",
-        caption: "Octagonal brick tower and surrounding tree canopy",
-        category: "Site Analysis",
-        subgroup: "Site Photographs",
-        fit: "contain",
-        surface: "photo",
-        ar: "542/776",
-      },
-      {
-        imageKey: "p4-site-3",
-        caption: "Turret facade with arched openings",
-        category: "Site Analysis",
-        subgroup: "Site Photographs",
-        fit: "contain",
-        surface: "photo",
-        ar: "534/774",
-      },
-      {
-        imageKey: "p4-site-4",
-        caption: "Domed corner tower and main red-brick verandah facade",
-        category: "Site Analysis",
-        subgroup: "Site Photographs",
-        fit: "contain",
-        surface: "photo",
-        ar: "782/778",
-      },
-      {
-        imageKey: "p4-site-5",
-        caption: "Existing wing elevation with pitched clay-tile roof",
-        category: "Site Analysis",
-        subgroup: "Site Photographs",
-        fit: "contain",
-        surface: "photo",
-        ar: "696/778",
-      },
-      {
-        imageKey: "p4-site-6",
-        caption: "Historic arched doorway with louvered timber shutters",
-        category: "Site Analysis",
-        subgroup: "Site Photographs",
-        fit: "contain",
-        surface: "photo",
-        ar: "526/778",
+        ar: "1978/1026",
       },
       {
         imageKey: "p4-struct-round",
@@ -905,7 +892,7 @@ export const PROJECTS: Project[] = [
         category: "Structure",
         fit: "contain",
         surface: "watercolor",
-        ar: "810/655",
+        ar: "1620/1310",
       },
       {
         imageKey: "p4-struct-seg",
@@ -914,7 +901,7 @@ export const PROJECTS: Project[] = [
         category: "Structure",
         fit: "contain",
         surface: "watercolor",
-        ar: "1030/560",
+        ar: "2060/1120",
       },
       {
         imageKey: "p4-plan-gf",
@@ -924,7 +911,7 @@ export const PROJECTS: Project[] = [
         subgroupLayout: "grid-2",
         fit: "contain",
         surface: "watercolor",
-        ar: "1698/1588",
+        ar: "2394/2239",
       },
       {
         imageKey: "p4-plan-ff",
@@ -933,7 +920,7 @@ export const PROJECTS: Project[] = [
         subgroup: "Plan",
         fit: "contain",
         surface: "watercolor",
-        ar: "1698/1588",
+        ar: "2394/2239",
       },
       {
         imageKey: "p4-sec-aa",
@@ -982,7 +969,7 @@ export const PROJECTS: Project[] = [
         subgroupLayout: "grid-2",
         fit: "contain",
         surface: "photo",
-        ar: "1168/928",
+        ar: "1916/1522",
       },
       {
         imageKey: "p4-rec-2",
@@ -990,7 +977,7 @@ export const PROJECTS: Project[] = [
         subgroup: "Reception Area",
         fit: "contain",
         surface: "photo",
-        ar: "1170/930",
+        ar: "1919/1525",
       },
       {
         imageKey: "p4-rec-3",
@@ -998,7 +985,7 @@ export const PROJECTS: Project[] = [
         subgroup: "Reception Area",
         fit: "contain",
         surface: "photo",
-        ar: "1168/928",
+        ar: "1916/1522",
       },
       {
         imageKey: "p4-rec-4",
@@ -1006,7 +993,7 @@ export const PROJECTS: Project[] = [
         subgroup: "Reception Area",
         fit: "contain",
         surface: "photo",
-        ar: "1163/918",
+        ar: "1919/1515",
       },
       {
         imageKey: "p4-rest-plan",
@@ -1016,7 +1003,7 @@ export const PROJECTS: Project[] = [
         panoramic: true,
         fit: "contain",
         surface: "photo",
-        ar: "1795/658",
+        ar: "2513/921",
       },
       {
         imageKey: "p4-rest-1",
@@ -1024,7 +1011,7 @@ export const PROJECTS: Project[] = [
         subgroup: "Restaurant",
         fit: "contain",
         surface: "photo",
-        ar: "873/695",
+        ar: "1912/1522",
       },
       {
         imageKey: "p4-rest-2",
@@ -1032,7 +1019,7 @@ export const PROJECTS: Project[] = [
         subgroup: "Restaurant",
         fit: "contain",
         surface: "photo",
-        ar: "878/693",
+        ar: "1914/1511",
       },
       {
         imageKey: "p4-rest-3",
@@ -1040,7 +1027,7 @@ export const PROJECTS: Project[] = [
         subgroup: "Restaurant",
         fit: "contain",
         surface: "photo",
-        ar: "875/695",
+        ar: "1916/1522",
       },
       {
         imageKey: "p4-rest-4",
@@ -1048,7 +1035,7 @@ export const PROJECTS: Project[] = [
         subgroup: "Restaurant",
         fit: "contain",
         surface: "photo",
-        ar: "875/695",
+        ar: "1916/1522",
       },
       {
         imageKey: "p4-dlx-plan",
@@ -1057,7 +1044,7 @@ export const PROJECTS: Project[] = [
         subgroupLayout: "grid-2",
         fit: "contain",
         surface: "photo",
-        ar: "910/725",
+        ar: "1911/1523",
       },
       {
         imageKey: "p4-dlx-1",
@@ -1065,7 +1052,7 @@ export const PROJECTS: Project[] = [
         subgroup: "Deluxe Bedroom",
         fit: "contain",
         surface: "photo",
-        ar: "915/723",
+        ar: "1912/1511",
       },
       {
         imageKey: "p4-dlx-2",
@@ -1073,7 +1060,7 @@ export const PROJECTS: Project[] = [
         subgroup: "Deluxe Bedroom",
         fit: "contain",
         surface: "photo",
-        ar: "913/728",
+        ar: "1917/1529",
       },
       {
         imageKey: "p4-dlx-bath",
@@ -1081,7 +1068,7 @@ export const PROJECTS: Project[] = [
         subgroup: "Deluxe Bedroom",
         fit: "contain",
         surface: "photo",
-        ar: "913/725",
+        ar: "1917/1523",
       },
       {
         imageKey: "p4-std-plan",
@@ -1090,7 +1077,7 @@ export const PROJECTS: Project[] = [
         subgroupLayout: "grid-2",
         fit: "contain",
         surface: "photo",
-        ar: "855/905",
+        ar: "1915/2027",
       },
       {
         imageKey: "p4-std-1",
@@ -1098,7 +1085,7 @@ export const PROJECTS: Project[] = [
         subgroup: "Standard Bedroom",
         fit: "contain",
         surface: "photo",
-        ar: "873/700",
+        ar: "1912/1533",
       },
       {
         imageKey: "p4-std-2",
@@ -1106,7 +1093,7 @@ export const PROJECTS: Project[] = [
         subgroup: "Standard Bedroom",
         fit: "contain",
         surface: "photo",
-        ar: "870/505",
+        ar: "1914/1111",
       },
       {
         imageKey: "p4-std-3",
@@ -1114,7 +1101,7 @@ export const PROJECTS: Project[] = [
         subgroup: "Standard Bedroom",
         fit: "contain",
         surface: "photo",
-        ar: "873/695",
+        ar: "1912/1522",
       },
       {
         imageKey: "p4-std-bath-1",
@@ -1122,7 +1109,7 @@ export const PROJECTS: Project[] = [
         subgroup: "Standard Bedroom",
         fit: "contain",
         surface: "photo",
-        ar: "875/695",
+        ar: "1916/1522",
       },
       {
         imageKey: "p4-std-bath-2",
@@ -1130,10 +1117,11 @@ export const PROJECTS: Project[] = [
         subgroup: "Standard Bedroom",
         fit: "contain",
         surface: "photo",
-        ar: "873/695",
+        ar: "1912/1522",
       },
     ],
     categoryOrder: [
+      "Site Photographs",
       "Moodboard",
       "Site Analysis",
       "Structure",
@@ -1141,6 +1129,7 @@ export const PROJECTS: Project[] = [
       "3D Visualisations",
     ],
     categoryTitles: {
+      "Site Photographs": "Site Photographs",
       Moodboard: "Concept & Moodboard",
       "Site Analysis": "Site Analysis",
       Structure: "Structure",
@@ -1148,8 +1137,9 @@ export const PROJECTS: Project[] = [
       "3D Visualisations": "3D Visualisations",
     },
     categoryDescriptions: {
+      "Site Photographs": "Existing RC College heritage facade, corner domes, brick colonnades and timber shutter details",
       Moodboard: "Bohemian design concept, material palette and atmosphere inspiration",
-      "Site Analysis": "Context mapping, solar orientation diagrams and existing building photos",
+      "Site Analysis": "Contextual land-use, solar orientation and road-network diagrams for RC College, Ahmedabad",
       Structure: "Round and segmental brick arch conservation studies",
       "Rendered Drawings": "Ground and first floor plans with four full building sections",
       "3D Visualisations": "Space-wise interior renders across reception, dining and guest suites",
@@ -1164,7 +1154,7 @@ export const PROJECTS: Project[] = [
     tag: "A beauty store and furniture gallery in one",
     location: "Manek Chowk, Ahmedabad",
     hero: "p5-hero",
-    ar: "580/536",
+    ar: "1920/1774",
     heroCap: "Concept view of the beauty store counter",
     brief:
       "Transform an existing space at Manek Chowk into a working commercial environment with a beauty store and a furniture exhibition space, using careful space planning, product display and activity zoning.",
@@ -1190,7 +1180,7 @@ export const PROJECTS: Project[] = [
         category: "Moodboard",
         fit: "contain",
         surface: "sheet",
-        ar: "855/1175",
+        ar: "1710/2350",
       },
       {
         imageKey: "p5-plan",
@@ -1206,7 +1196,7 @@ export const PROJECTS: Project[] = [
         category: "Other Project Visuals",
         fit: "contain",
         surface: "photo",
-        ar: "4/5",
+        ar: "1232/1252",
       },
       {
         imageKey: "p5-ref-2",
@@ -1214,7 +1204,7 @@ export const PROJECTS: Project[] = [
         category: "Other Project Visuals",
         fit: "contain",
         surface: "photo",
-        ar: "4/5",
+        ar: "1670/2070",
       },
       {
         imageKey: "p5-ref-3",
@@ -1222,7 +1212,7 @@ export const PROJECTS: Project[] = [
         category: "Other Project Visuals",
         fit: "contain",
         surface: "photo",
-        ar: "4/5",
+        ar: "1704/2118",
       },
       {
         imageKey: "p5-dir-1",
@@ -1230,7 +1220,7 @@ export const PROJECTS: Project[] = [
         category: "Other Project Visuals",
         fit: "contain",
         surface: "photo",
-        ar: "4/5",
+        ar: "1724/2186",
       },
       {
         imageKey: "p5-dir-2",
@@ -1238,7 +1228,7 @@ export const PROJECTS: Project[] = [
         category: "Other Project Visuals",
         fit: "contain",
         surface: "photo",
-        ar: "4/5",
+        ar: "1466/2186",
       },
       {
         imageKey: "p5-dir-3",
@@ -1246,7 +1236,7 @@ export const PROJECTS: Project[] = [
         category: "Other Project Visuals",
         fit: "contain",
         surface: "photo",
-        ar: "4/5",
+        ar: "1/1",
       },
       {
         imageKey: "p5-dir-4",
@@ -1254,7 +1244,7 @@ export const PROJECTS: Project[] = [
         category: "Other Project Visuals",
         fit: "contain",
         surface: "photo",
-        ar: "4/5",
+        ar: "1892/2186",
       },
       {
         imageKey: "p5-dir-5",
@@ -1262,7 +1252,7 @@ export const PROJECTS: Project[] = [
         category: "Other Project Visuals",
         fit: "contain",
         surface: "photo",
-        ar: "4/5",
+        ar: "1460/2186",
       },
     ],
     categoryTitles: {
@@ -1284,7 +1274,7 @@ export const PROJECTS: Project[] = [
     tag: "Furniture and wall design options",
     hero: "p6-hero",
     heroSurface: "cad",
-    ar: "683/389",
+    ar: "2397/1365",
     heroCap: "Bedroom wall design options with material callouts",
     brief:
       "Working drawings produced during training: design options for a bedroom wall and TV unit, and a dimensioned technical drawing of a wardrobe.",
@@ -1301,7 +1291,7 @@ export const PROJECTS: Project[] = [
         category: "Rendered Drawings",
         fit: "contain",
         surface: "cad",
-        ar: "1700/960",
+        ar: "2397/1354",
       },
       {
         imageKey: "p6-tv",
@@ -1309,7 +1299,7 @@ export const PROJECTS: Project[] = [
         category: "Technical Drawings",
         fit: "contain",
         surface: "cad",
-        ar: "1700/1168",
+        ar: "2397/1647",
       },
     ],
     categoryDescriptions: {

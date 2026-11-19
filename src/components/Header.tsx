@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 import { useMagnetic } from '../hooks/useInteractiveEnhancements';
+import { MusicToggleButton } from './MusicToggleButton';
 
 export type NavGroup = 'work' | 'about' | 'contact' | null;
 
@@ -7,7 +8,10 @@ interface HeaderProps {
   scrolled: boolean;
   activeNav: NavGroup;
   night: boolean;
+  musicEnabled: boolean;
+  musicPlaying: boolean;
   onToggleTheme: () => void;
+  onToggleMusic: () => void;
   onNavigate: (e: React.MouseEvent<HTMLAnchorElement>, targetId: string) => void;
 }
 
@@ -15,7 +19,10 @@ export const Header: React.FC<HeaderProps> = ({
   scrolled,
   activeNav,
   night,
+  musicEnabled,
+  musicPlaying,
   onToggleTheme,
+  onToggleMusic,
   onNavigate,
 }) => {
   const lampRef = useRef<HTMLButtonElement>(null);
@@ -53,6 +60,12 @@ export const Header: React.FC<HeaderProps> = ({
           >
             Contact
           </a>
+          <MusicToggleButton
+            enabled={musicEnabled}
+            isPlaying={musicPlaying}
+            onToggle={onToggleMusic}
+            variant="header"
+          />
           <button
             ref={lampRef}
             className="lamp"
