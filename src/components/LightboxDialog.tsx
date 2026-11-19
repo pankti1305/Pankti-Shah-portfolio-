@@ -133,13 +133,11 @@ export const LightboxDialog: React.FC<LightboxDialogProps> = ({
         prevFocusRef.current = document.activeElement as HTMLElement | null;
       }
       root.setAttribute('data-lightbox', '1');
-      document.body.style.overflow = 'hidden';
       containerRef.current?.focus({ preventScroll: true });
     } else {
       setShowNotes(false);
       setZoomed(false);
       root.removeAttribute('data-lightbox');
-      document.body.style.overflow = '';
       if (prevFocusRef.current) {
         prevFocusRef.current.focus?.({ preventScroll: true });
         prevFocusRef.current = null;
@@ -148,7 +146,6 @@ export const LightboxDialog: React.FC<LightboxDialogProps> = ({
 
     return () => {
       root.removeAttribute('data-lightbox');
-      document.body.style.overflow = '';
     };
   }, [state]);
 

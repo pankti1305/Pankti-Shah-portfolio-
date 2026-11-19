@@ -6,6 +6,7 @@ import { CustomCursor } from './components/CustomCursor';
 import { Header, NavGroup } from './components/Header';
 import { HeroSection } from './components/HeroSection';
 import { LightboxDialog, LightboxState } from './components/LightboxDialog';
+import { ProjectExplorerDialog } from './components/ProjectExplorerDialog';
 import { StatementSection } from './components/StatementSection';
 import { WorkIndexSection } from './components/WorkIndexSection';
 import { PROJECTS } from './data/portfolioData';
@@ -20,11 +21,21 @@ export default function App() {
   );
   const [scrolled, setScrolled] = useState(false);
   const [activeNav, setActiveNav] = useState<NavGroup>(null);
+  const [explorerProjectIndex, setExplorerProjectIndex] = useState<number | null>(null);
   const [lightbox, setLightbox] = useState<LightboxState | null>(null);
 
   const night = userSelectedTheme ? userSelectedTheme === 'dark' : systemDark;
 
   useScrollReveal();
+
+  // Coordinate body scroll lock across Explorer and Lightbox overlays
+  useEffect(() => {
+    const locked = explorerProjectIndex !== null || lightbox !== null;
+    document.body.style.overflow = locked ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [explorerProjectIndex, lightbox]);
 
   // Listen to OS color scheme changes when user hasn't manually overridden
   useEffect(() => {
@@ -48,7 +59,7 @@ export default function App() {
 
     const meta = document.querySelector<HTMLMetaElement>('meta[name="theme-color"]');
     if (meta) {
-      meta.content = night ? '#161B15' : '#ECE9E2';
+      meta.content = night ? '#1E3127' : '#F1EBDD';
     }
   }, [night, userSelectedTheme]);
 
@@ -117,6 +128,14 @@ export default function App() {
     setUserSelectedTheme(night ? 'light' : 'dark');
   }, [night]);
 
+  const handleExploreProject = useCallback((projectIndex: number) => {
+    setExplorerProjectIndex(projectIndex);
+  }, []);
+
+  const handleCloseExplorer = useCallback(() => {
+    setExplorerProjectIndex(null);
+  }, []);
+
   const handleOpenLightbox = useCallback((projectIndex: number, sheetIndex: number) => {
     setLightbox({ projectIndex, itemIndex: sheetIndex + 1 });
   }, []);
@@ -149,10 +168,20 @@ export default function App() {
         <HeroSection night={night} onNavigate={handleNavigate} />
         <StatementSection />
         <WorkIndexSection onNavigate={handleNavigate} />
-        <CaseStudySection onOpenLightbox={handleOpenLightbox} />
+        <CaseStudySection
+          onOpenLightbox={handleOpenLightbox}
+          onExploreProject={handleExploreProject}
+        />
         <AboutSection />
         <ContactSection onNavigate={handleNavigate} />
       </main>
+
+      <ProjectExplorerDialog
+        projectIndex={explorerProjectIndex}
+        isLightboxOpen={lightbox !== null}
+        onClose={handleCloseExplorer}
+        onOpenLightbox={handleOpenLightbox}
+      />
 
       <LightboxDialog
         state={lightbox}

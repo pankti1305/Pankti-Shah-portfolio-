@@ -1,6 +1,5 @@
-import React, { useEffect, useMemo, useRef } from 'react';
+import React, { useEffect, useRef } from 'react';
 import {
-  getProjectGalleryGroups,
   IMAGES,
   Project,
   PROJECTS,
@@ -14,24 +13,29 @@ import {
 
 interface CaseStudySectionProps {
   onOpenLightbox: (projectIndex: number, sheetIndex: number) => void;
+  onExploreProject: (projectIndex: number) => void;
 }
 
 interface CaseItemProps {
   project: Project;
   projectIndex: number;
   onOpenLightbox: (projectIndex: number, sheetIndex: number) => void;
+  onExploreProject: (projectIndex: number) => void;
 }
 
 const CaseStudyItem: React.FC<CaseItemProps> = ({
   project,
   projectIndex,
   onOpenLightbox,
+  onExploreProject,
 }) => {
   const tiltRef = useRef<HTMLButtonElement>(null);
   const parallaxRef = useRef<HTMLDivElement>(null);
+  const exploreBtnRef = useRef<HTMLButtonElement>(null);
   const ghBtnRef = useRef<HTMLAnchorElement>(null);
 
   useSubtleParallax(parallaxRef, 12);
+  useMagnetic(exploreBtnRef, 0.16);
   useMagnetic(ghBtnRef, 0.16);
 
   useEffect(() => {
@@ -63,8 +67,6 @@ const CaseStudyItem: React.FC<CaseItemProps> = ({
       el.removeEventListener('pointerleave', onLeave);
     };
   }, []);
-
-  const galleryGroups = useMemo(() => getProjectGalleryGroups(project), [project]);
 
   return (
     <section className="case" id={project.id} aria-labelledby={`${project.id}-h`}>
@@ -154,174 +156,39 @@ const CaseStudyItem: React.FC<CaseItemProps> = ({
           )}
         </div>
 
-        <div className="gallery-groups">
-          {galleryGroups.map((group, groupIndex) => {
-            const count = group.items.length;
-            const headingId = `${project.id}-cat-${groupIndex}`;
-            return (
-              <section
-                key={group.category}
-                className="gallery-group"
-                aria-labelledby={headingId}
-                data-reveal
-                style={{ '--stagger': Math.min(groupIndex, 3) } as React.CSSProperties}
-              >
-                <div className="gallery-head">
-                  <h4 id={headingId} className="gallery-title d interactive-heading">
-                    {group.title}
-                  </h4>
-                  <span className="meta">
-                    {count} {count === 1 ? 'sheet' : 'sheets'}
-                  </span>
-                </div>
-
-                {group.subgroups ? (
-                  <div className="gallery-subgroups">
-                    {group.subgroups.map((sub, subIndex) => (
-                      <div key={sub.title} className="gallery-subgroup">
-                        <div className="gallery-subhead">
-                          <h5
-                            id={`${headingId}-sub-${subIndex}`}
-                            className="gallery-subtitle d interactive-heading"
-                          >
-                            {sub.title}
-                          </h5>
-                          <span className="meta">
-                            {sub.items.length} {sub.items.length === 1 ? 'sheet' : 'sheets'}
-                          </span>
-                        </div>
-                        {sub.description && (
-                          <p className="gallery-subdesc">{sub.description}</p>
-                        )}
-                        <div
-                          className="gallery-grid"
-                          data-count={sub.items.length}
-                          data-layout={sub.layout}
-                          style={{ '--card-ar': sub.aspectRatio } as React.CSSProperties}
-                        >
-                          {sub.items.map(({ sheet, orderedIndex }, itemIdx) => (
-                            <button
-                              key={sheet.imageKey}
-                              className="sheet gallery-card"
-                              type="button"
-                              data-key={sheet.imageKey}
-                              data-fit={sheet.fit ?? 'contain'}
-                              data-surface={sheet.surface ?? (sheet.fit === 'cover' ? 'photo' : 'sheet')}
-                              data-fade={sheet.fadeBottom ? 'bottom' : undefined}
-                              data-wide={sheet.panoramic ? '1' : undefined}
-                              data-role={
-                                sub.layout === 'plan-elevations' && itemIdx === 0
-                                  ? 'plan'
-                                  : undefined
-                              }
-                              style={
-                                sheet.ar
-                                  ? ({ '--item-ar': sheet.ar } as React.CSSProperties)
-                                  : undefined
-                              }
-                              onClick={() => onOpenLightbox(projectIndex, orderedIndex)}
-                              aria-label={
-                                sheet.title || sheet.caption
-                                  ? `Open ${sub.title}: ${sheet.title ?? sheet.caption}`
-                                  : `Open ${sub.title} view ${itemIdx + 1}`
-                              }
-                            >
-                              <div className="gallery-frame">
-                                <img
-                                  src={IMAGES[sheet.imageKey]}
-                                  alt={
-                                    sheet.title
-                                      ? sheet.caption
-                                        ? `${sheet.title} — ${sheet.caption}`
-                                        : sheet.title
-                                      : (sheet.caption ?? `${sub.title} view ${itemIdx + 1}`)
-                                  }
-                                  loading="lazy"
-                                  decoding="async"
-                                  referrerPolicy="no-referrer"
-                                />
-                              </div>
-                              {sheet.title && (
-                                <strong className="gallery-card-title">{sheet.title}</strong>
-                              )}
-                              {sheet.caption && (
-                                <span className="gallery-caption">{sheet.caption}</span>
-                              )}
-                            </button>
-                          ))}
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div
-                    className="gallery-grid"
-                    data-count={count}
-                    data-layout={group.isCurated ? 'curated' : 'grid'}
-                    data-panoramic={group.isPanoramic ? '1' : '0'}
-                    style={{ '--card-ar': group.aspectRatio } as React.CSSProperties}
-                  >
-                    {group.items.map(({ sheet, orderedIndex }) => (
-                      <button
-                        key={sheet.imageKey}
-                        className="sheet gallery-card"
-                        type="button"
-                        data-key={sheet.imageKey}
-                        data-fit={sheet.fit ?? 'contain'}
-                        data-surface={sheet.surface ?? (sheet.fit === 'cover' ? 'photo' : 'sheet')}
-                        data-fade={sheet.fadeBottom ? 'bottom' : undefined}
-                        data-wide={sheet.panoramic ? '1' : undefined}
-                        data-span={sheet.span}
-                        style={
-                          sheet.ar
-                            ? ({ '--item-ar': sheet.ar } as React.CSSProperties)
-                            : undefined
-                        }
-                        onClick={() => onOpenLightbox(projectIndex, orderedIndex)}
-                        aria-label={
-                          sheet.title || sheet.caption
-                            ? `Open ${group.title}: ${sheet.title ?? sheet.caption}`
-                            : `Open ${group.title}`
-                        }
-                      >
-                        <div className="gallery-frame">
-                          <img
-                            src={IMAGES[sheet.imageKey]}
-                            alt={sheet.caption ?? sheet.title ?? group.title}
-                            loading="lazy"
-                            decoding="async"
-                            referrerPolicy="no-referrer"
-                          />
-                        </div>
-                        {sheet.title && (
-                          <strong className="gallery-card-title">{sheet.title}</strong>
-                        )}
-                        {sheet.caption && (
-                          <span className="gallery-caption">{sheet.caption}</span>
-                        )}
-                      </button>
-                    ))}
-                  </div>
-                )}
-              </section>
-            );
-          })}
+        <div className="files" data-reveal style={{ '--stagger': 1 } as React.CSSProperties}>
+          <button
+            ref={exploreBtnRef}
+            type="button"
+            className="btn explore-btn"
+            onClick={() => onExploreProject(projectIndex)}
+          >
+            EXPLORE COMPLETE PROJECT
+            <svg viewBox="0 0 24 24" aria-hidden="true">
+              <path
+                d="M5 12h14M13 6l6 6-6 6"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
 
           {project.githubUrl && (
-            <div className="files" data-reveal style={{ '--stagger': 1 } as React.CSSProperties}>
-              <a
-                ref={ghBtnRef}
-                className="btn"
-                href={project.githubUrl}
-                target="_blank"
-                rel="noopener noreferrer"
-              >
-                <svg viewBox="0 0 24 24" aria-hidden="true">
-                  <path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z" />
-                </svg>
-                View on GitHub
-              </a>
-            </div>
+            <a
+              ref={ghBtnRef}
+              className="btn"
+              href={project.githubUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.53-1.33-1.28-1.69-1.28-1.69-1.05-.71.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5z" />
+              </svg>
+              View on GitHub
+            </a>
           )}
         </div>
       </div>
@@ -331,6 +198,7 @@ const CaseStudyItem: React.FC<CaseItemProps> = ({
 
 export const CaseStudySection: React.FC<CaseStudySectionProps> = ({
   onOpenLightbox,
+  onExploreProject,
 }) => {
   return (
     <div id="cases">
@@ -340,6 +208,7 @@ export const CaseStudySection: React.FC<CaseStudySectionProps> = ({
           project={project}
           projectIndex={index}
           onOpenLightbox={onOpenLightbox}
+          onExploreProject={onExploreProject}
         />
       ))}
     </div>

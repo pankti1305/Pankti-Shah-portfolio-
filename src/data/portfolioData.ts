@@ -186,6 +186,7 @@ export interface Project {
   sheets: ProjectSheet[];
   categoryOrder?: readonly GalleryCategory[];
   categoryTitles?: Partial<Record<GalleryCategory, string>>;
+  categoryDescriptions?: Partial<Record<GalleryCategory, string>>;
   githubUrl?: string;
 }
 
@@ -205,6 +206,7 @@ export interface ProjectGallerySubgroup {
 export interface ProjectGalleryGroup {
   category: GalleryCategory;
   title: string;
+  description?: string;
   items: GalleryGroupItem[];
   subgroups?: ProjectGallerySubgroup[];
   aspectRatio: string;
@@ -255,6 +257,7 @@ export function getProjectGalleryGroups(project: Project): ProjectGalleryGroup[]
       groups.push({
         category,
         title: project.categoryTitles?.[category] ?? category,
+        description: project.categoryDescriptions?.[category],
         items: flatItems,
         subgroups,
         aspectRatio: "16/11",
@@ -282,6 +285,7 @@ export function getProjectGalleryGroups(project: Project): ProjectGalleryGroup[]
     groups.push({
       category,
       title: project.categoryTitles?.[category] ?? category,
+      description: project.categoryDescriptions?.[category],
       items,
       aspectRatio,
       isPanoramic,
@@ -463,6 +467,11 @@ export const PROJECTS: Project[] = [
         span: 6,
       },
     ],
+    categoryDescriptions: {
+      "Technical Drawings": "Retail layout plan, billing counter details, elevations and sections",
+      "Rendered Drawings": "Coloured store plan, marble flooring, billing counter and display elevations",
+      "Physical Models": "Scale model views of perimeter zoning, central island and lighting",
+    },
     githubUrl: "https://github.com/pankti1305/lushe-glow-retail-design",
   },
   {
@@ -526,6 +535,14 @@ export const PROJECTS: Project[] = [
         ar: "1/1",
       },
     ],
+    categoryOrder: ["Other Project Visuals", "Technical Drawings"],
+    categoryTitles: {
+      "Other Project Visuals": "Concept Sheet",
+    },
+    categoryDescriptions: {
+      "Other Project Visuals": "Design concept sketches, block forms and climate-responsive zoning",
+      "Technical Drawings": "Ground floor plan, classroom elevations and Section AA’",
+    },
     githubUrl: "https://github.com/pankti1305/block-and-flow-school-design",
   },
   {
@@ -746,6 +763,11 @@ export const PROJECTS: Project[] = [
         ar: "1000/898",
       },
     ],
+    categoryOrder: ["Technical Drawings", "Rendered Drawings"],
+    categoryDescriptions: {
+      "Technical Drawings": "CAD plans, architectural sections and detailed bedroom joinery drawings",
+      "Rendered Drawings": "Floor plans, sections and room-wise bathroom & kitchen elevations",
+    },
     githubUrl: "https://github.com/pankti1305/residential-villa-interior-design",
   },
   {
@@ -793,6 +815,9 @@ export const PROJECTS: Project[] = [
         title: "Surrounding Land Use",
         caption: "Context mapping across residential, retail, school and institutional zones",
         category: "Site Analysis",
+        subgroup: "Site Analysis Diagrams",
+        subgroupDesc:
+          "Contextual land-use, solar orientation and road-network diagrams documenting the historic RC College site in Ahmedabad.",
         fit: "contain",
         surface: "watercolor",
         ar: "1190/1010",
@@ -802,6 +827,7 @@ export const PROJECTS: Project[] = [
         title: "Sun Path & Orientation",
         caption: "Solar movement, north orientation and landscape microclimate",
         category: "Site Analysis",
+        subgroup: "Site Analysis Diagrams",
         fit: "contain",
         surface: "watercolor",
         ar: "1125/1100",
@@ -811,6 +837,7 @@ export const PROJECTS: Project[] = [
         title: "Approach & Road Network",
         caption: "Primary arterial road and site access corridor",
         category: "Site Analysis",
+        subgroup: "Site Analysis Diagrams",
         fit: "contain",
         surface: "photo",
         ar: "1413/733",
@@ -818,7 +845,10 @@ export const PROJECTS: Project[] = [
       {
         imageKey: "p4-site-1",
         caption: "Timber lattice verandah and upper brick arches",
-        category: "Site Photographs",
+        category: "Site Analysis",
+        subgroup: "Site Photographs",
+        subgroupDesc:
+          "Existing RC College heritage facade, corner domes, brick colonnades and timber shutter details.",
         fit: "contain",
         surface: "photo",
         ar: "580/768",
@@ -826,7 +856,8 @@ export const PROJECTS: Project[] = [
       {
         imageKey: "p4-site-2",
         caption: "Octagonal brick tower and surrounding tree canopy",
-        category: "Site Photographs",
+        category: "Site Analysis",
+        subgroup: "Site Photographs",
         fit: "contain",
         surface: "photo",
         ar: "542/776",
@@ -834,7 +865,8 @@ export const PROJECTS: Project[] = [
       {
         imageKey: "p4-site-3",
         caption: "Turret facade with arched openings",
-        category: "Site Photographs",
+        category: "Site Analysis",
+        subgroup: "Site Photographs",
         fit: "contain",
         surface: "photo",
         ar: "534/774",
@@ -842,7 +874,8 @@ export const PROJECTS: Project[] = [
       {
         imageKey: "p4-site-4",
         caption: "Domed corner tower and main red-brick verandah facade",
-        category: "Site Photographs",
+        category: "Site Analysis",
+        subgroup: "Site Photographs",
         fit: "contain",
         surface: "photo",
         ar: "782/778",
@@ -850,7 +883,8 @@ export const PROJECTS: Project[] = [
       {
         imageKey: "p4-site-5",
         caption: "Existing wing elevation with pitched clay-tile roof",
-        category: "Site Photographs",
+        category: "Site Analysis",
+        subgroup: "Site Photographs",
         fit: "contain",
         surface: "photo",
         ar: "696/778",
@@ -858,7 +892,8 @@ export const PROJECTS: Project[] = [
       {
         imageKey: "p4-site-6",
         caption: "Historic arched doorway with louvered timber shutters",
-        category: "Site Photographs",
+        category: "Site Analysis",
+        subgroup: "Site Photographs",
         fit: "contain",
         surface: "photo",
         ar: "526/778",
@@ -1099,20 +1134,25 @@ export const PROJECTS: Project[] = [
       },
     ],
     categoryOrder: [
-      "Site Photographs",
-      "Site Analysis",
       "Moodboard",
-      "Rendered Drawings",
+      "Site Analysis",
       "Structure",
+      "Rendered Drawings",
       "3D Visualisations",
     ],
     categoryTitles: {
-      "Site Photographs": "Site Photographs",
+      Moodboard: "Concept & Moodboard",
       "Site Analysis": "Site Analysis",
-      Moodboard: "Moodboard",
-      "Rendered Drawings": "Rendered Drawings",
       Structure: "Structure",
-      "3D Visualisations": "3D Visualisation",
+      "Rendered Drawings": "Rendered Drawings",
+      "3D Visualisations": "3D Visualisations",
+    },
+    categoryDescriptions: {
+      Moodboard: "Bohemian design concept, material palette and atmosphere inspiration",
+      "Site Analysis": "Context mapping, solar orientation diagrams and existing building photos",
+      Structure: "Round and segmental brick arch conservation studies",
+      "Rendered Drawings": "Ground and first floor plans with four full building sections",
+      "3D Visualisations": "Space-wise interior renders across reception, dining and guest suites",
     },
     githubUrl: "https://github.com/pankti1305/rc-college-hotel-adaptive-reuse",
   },
@@ -1226,7 +1266,13 @@ export const PROJECTS: Project[] = [
       },
     ],
     categoryTitles: {
+      Moodboard: "Concept & Moodboard",
       "Other Project Visuals": "Project Visuals",
+    },
+    categoryDescriptions: {
+      Moodboard: "Concept direction, botanical textures and retail material palette",
+      "Technical Drawings": "Site plan (scale 1:3500), Section AA’ and Section BB’",
+      "Other Project Visuals": "Furniture gallery references, lighting fixtures and finish studies",
     },
     githubUrl: "https://github.com/pankti1305/manek-chowk-multifunctional-space",
   },
@@ -1266,6 +1312,10 @@ export const PROJECTS: Project[] = [
         ar: "1700/1168",
       },
     ],
+    categoryDescriptions: {
+      "Rendered Drawings": "Bedroom wall finish options with PU flute and timber callouts",
+      "Technical Drawings": "TV unit elevation options and dimensioned wardrobe working drawing",
+    },
     githubUrl: "https://github.com/pankti1305/interior-training-work",
   },
 ];

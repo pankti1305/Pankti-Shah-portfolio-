@@ -100,9 +100,9 @@ export const HeroScene3D: React.FC<HeroScene3DProps> = ({
     world.add(stack);
 
     const hemi = new THREE.HemisphereLight(
-      new THREE.Color('#ffffff'),
-      new THREE.Color('#c9bfae'),
-      0.9
+      new THREE.Color('#F1EBDD'),
+      new THREE.Color('#D8CEB8'),
+      0.95
     );
     scene.add(hemi);
 
@@ -136,10 +136,10 @@ export const HeroScene3D: React.FC<HeroScene3DProps> = ({
     cv.height = 512;
     const g = cv.getContext('2d');
     if (g) {
-      g.fillStyle = '#dcdad4';
+      g.fillStyle = '#F1EBDD';
       g.fillRect(0, 0, 512, 512);
       for (let i = 0; i < 26; i++) {
-        g.strokeStyle = `rgba(120,118,112,${0.08 + Math.random() * 0.18})`;
+        g.strokeStyle = `rgba(48, 75, 60, ${0.08 + Math.random() * 0.16})`;
         g.lineWidth = 0.6 + Math.random() * 1.6;
         g.beginPath();
         let x = Math.random() * 512;
@@ -199,10 +199,10 @@ export const HeroScene3D: React.FC<HeroScene3DProps> = ({
     textures.push(moonTex);
 
     const moonMat = new THREE.MeshBasicMaterial({
-      color: new THREE.Color('#dfe3da'),
+      color: new THREE.Color('#F1EBDD'),
       map: moonTex,
       transparent: true,
-      opacity: 0.7,
+      opacity: 0.72,
       depthWrite: false,
     });
     const moonGeo = new THREE.PlaneGeometry(6.6, 6.6);
@@ -214,20 +214,20 @@ export const HeroScene3D: React.FC<HeroScene3DProps> = ({
 
     // Stacked architectural room frames
     const frameMat = new THREE.MeshStandardMaterial({
-      color: new THREE.Color('#5d5550'),
-      roughness: 0.75,
+      color: new THREE.Color('#304B3C'),
+      roughness: 0.72,
     });
     const woodMat = new THREE.MeshStandardMaterial({
-      color: new THREE.Color('#8b5a36'),
-      roughness: 0.7,
+      color: new THREE.Color('#C66C43'),
+      roughness: 0.68,
     });
     materials.push(frameMat, woodMat);
 
     const makeWallMat = () => {
       const m = new THREE.MeshStandardMaterial({
-        color: new THREE.Color('#e7e3dc'),
-        roughness: 0.9,
-        emissive: new THREE.Color('#ffb969'),
+        color: new THREE.Color('#F1EBDD'),
+        roughness: 0.88,
+        emissive: new THREE.Color('#F1EBDD'),
         emissiveIntensity: 0,
       });
       materials.push(m);
@@ -236,9 +236,9 @@ export const HeroScene3D: React.FC<HeroScene3DProps> = ({
 
     const makeRustMat = () => {
       const m = new THREE.MeshStandardMaterial({
-        color: new THREE.Color('#8a4a2c'),
-        roughness: 0.85,
-        emissive: new THREE.Color('#ff9a4d'),
+        color: new THREE.Color('#C66C43'),
+        roughness: 0.8,
+        emissive: new THREE.Color('#C66C43'),
         emissiveIntensity: 0,
       });
       materials.push(m);
@@ -318,9 +318,9 @@ export const HeroScene3D: React.FC<HeroScene3DProps> = ({
 
     // Flocking birds
     const birdMat = new THREE.LineBasicMaterial({
-      color: new THREE.Color('#3a3f37'),
+      color: new THREE.Color('#304B3C'),
       transparent: true,
-      opacity: 0.8,
+      opacity: 0.85,
     });
     const birdGeo = new THREE.BufferGeometry().setAttribute(
       'position',
@@ -398,16 +398,16 @@ export const HeroScene3D: React.FC<HeroScene3DProps> = ({
     // Day/night color interpolation targets
     const state = { k: nightTargetRef.current };
     const lerp = (a: number, b: number, t: number) => a + (b - a) * t;
-    const cDayHemi = new THREE.Color('#ffffff');
-    const cNightHemi = new THREE.Color('#4f6070');
-    const cDayGround = new THREE.Color('#c9bfae');
-    const cNightGround = new THREE.Color('#151a14');
-    const cDaySun = new THREE.Color('#fff1dc');
-    const cNightSun = new THREE.Color('#9fb3ff');
-    const cDayMoon = new THREE.Color('#dfe3da');
-    const cNightMoon = new THREE.Color('#f2efe2');
-    const cDayBird = new THREE.Color('#3a3f37');
-    const cNightBird = new THREE.Color('#cfd3c4');
+    const cDayHemi = new THREE.Color('#F1EBDD');
+    const cNightHemi = new THREE.Color('#304B3C');
+    const cDayGround = new THREE.Color('#D8CEB8');
+    const cNightGround = new THREE.Color('#1E3127');
+    const cDaySun = new THREE.Color('#FFF6E8');
+    const cNightSun = new THREE.Color('#F1EBDD');
+    const cDayMoon = new THREE.Color('#F1EBDD');
+    const cNightMoon = new THREE.Color('#F1EBDD');
+    const cDayBird = new THREE.Color('#304B3C');
+    const cNightBird = new THREE.Color('#F1EBDD');
 
     let visible = true;
     const io = new IntersectionObserver(([entry]) => {
